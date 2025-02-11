@@ -1,0 +1,77 @@
+/* 전체 스타일 */
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f7fa;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+  text-align: center;
+}
+
+div#userInfoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.user {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  width: 100%;
+  max-width: 600px;
+  text-align: left;
+}
+
+.user div {
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.user div span {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.email span {
+  color: #28a745;
+}
+
+.pw span {
+  color: #dc3545;
+}
+
+.name span {
+  color: #6f42c1;
+}
+
+.age span {
+  color: #fd7e14;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+  .user {
+    padding: 15px;
+  }
+
+  .user div {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .user {
+    padding: 10px;
+  }
+
+  .user div {
+    font-size: 13px;
+  }
+}
