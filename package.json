@@ -18,6 +18,7 @@
   "homepage": "https://github.com/yujeen02/node_test#readme",
   "description": "",
   "dependencies": {
+    "axios": "^1.7.9",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-generator": "^4.16.1"
