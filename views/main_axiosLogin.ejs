@@ -1,0 +1,46 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h3>로그인화면</h3>
+    <form id="loginForm">
+      <input
+        type="text"
+        placeholder="아이디를 입력해 주세요."
+        name="id"
+        required
+      />
+      <input
+        type="password"
+        placeholder="비밀번호를 입력해 주세요."
+        name="pw"
+        required
+      />
+      <button onclick="joinData(event)" id="saveBtn">회원 등록</button>
+    </form>
+    <div class="container"></div>
+    <script>
+      const joinData = (event) => {
+        event.preventDefault(); // 폼 제출 방지
+        const data = {
+          id: document.querySelector("input[name='id']").value,
+          pw: document.querySelector("input[name='pw']").value,
+        };
+        console.log(data);
+        axios({
+          method: "post",
+          url: "/axiospost",
+          data: data,
+        }).then((res) => {
+          console.log(res, "뭐래");
+          const box = document.querySelector(".container");
+          box.innerText = res.data;
+        });
+      };
+    </script>
+  </body>
+</html>

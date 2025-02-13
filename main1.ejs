@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="button-group"></div>
+  </body>
+</html>
+<script>
+  const movePage = (type) => {
+    //a: 켜진 서버 기준으로 이동
+    //window.location.href: 주소를 타고 들어가야 됨
+    window.location.href = `http://localhost:3000/${type}`;
+  };
+
+  const buttonGroup = document.querySelector(".button-group");
+
+  const data = [
+    "ttttt",
+    "qweqwe",
+    "ookkl",
+    "oikjk",
+    "mnbjkj",
+    "lklkjkjbjb",
+    "lkl",
+    "lkkkj",
+    "kkkkk",
+    "kkkk",
+    "kjkjkn",
+    "kjkjkjkjlk",
+    "kjkjhkjhk",
+    "kjhkjhkj",
+    "jjjjjj",
+    "jhijh",
+    "hjhj",
+    "hhhhjjjj",
+    "dkdk",
+    "ddd",
+  ];
+
+  data.forEach((item, index) => {
+    const button = document.createElement("button");
+    button.innerText = `버튼 ${index + 1}`;
+    button.onclick = () => {
+      movePage(item);
+    };
+    buttonGroup.appendChild(button);
+  });
+
+  // const data = {
+  //   id: 1,
+  //   name: "김김김",
+  //   age: 24,
+  // };
+
+  // axios 요청 테스트
+  // get 요청 테스트
+  // get -> params, post => data
+  // const onClick = () => {
+  //   axios({
+  //     method: "get",
+  //     url: "/axiosget",
+  //     params: data,
+  //   }).then((res) => {
+  //     console.log(res, "뭐라고 나오니?");
+  //   });
+  // };
+
+  // post 요청 테스트
+  // const onClick = (page) => {
+  //   axios({
+  //     method: "post",
+  //     url: "/axiospost",
+  //     data: data,
+  //   }).then((res) => {
+  //     console.log(res, "뭐라고 나오니?");
+  //   });
+  // };
+</script>
