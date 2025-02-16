@@ -23,14 +23,14 @@ app.get("/axiosget", (req, res) => {
 });
 
 // post
-// app.post("/axiospost", (req, res) => {
-//   const userData = { id: "123", pw: "123" };
-//   const postData = { id: req.body.id, pw: req.body.pw };
-//   if (userData.id === postData.id && userData.pw === postData.pw) {
-//     res.send("성공");
-//   } else res.send("실패");
-//   res.end();
-// });
+app.post("/axiospost", (req, res) => {
+  const userData = { id: "123", pw: "123" };
+  const postData = { id: req.body.id, pw: req.body.pw };
+  if (userData.id === postData.id && userData.pw === postData.pw) {
+    res.send("성공");
+  } else res.send("실패");
+  res.end();
+});
 
 app.listen(port, () => {
   console.log(`서버 실행 ${port}`);

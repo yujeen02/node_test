@@ -1,36 +1,62 @@
 const express = require("express");
+const multer = require("multer");
+const path = require("path");
+
+const storage = multer.diskStorage({
+  destination(req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename(req, file, cb) {
+    const ext = path.extname(file.originalname);
+
+    cb(null, Date.now() + ext);
+  },
+});
+
+const uploads = multer({ storage });
+
 const app = express();
 const port = 3000;
-const path = require("path");
-// 순서: use -> set -> get
+
 app.use(express.urlencoded({ extended: true }));
 // json 형식으로 받음
 app.use(express.json());
+
 app.use(express.static(path.join(__dirname, "static")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // 메인 페이지 렌더링
 app.get("/", (req, res) => {
-  res.render("join");
+  res.render("axiosFile");
 });
 
-// get
-app.get("/axiosget", (req, res) => {
-  console.log(req.query);
-  res.send(req.query);
+// post 1개
+app.post("/upload", uploads.single("files"), (req, res) => {
+  const data = {
+    src: req.file.filename,
+    title: req.body.title,
+  };
+
+  console.log(data);
+  res.send(data);
 });
 
-// post
-// app.post("/axiospost", (req, res) => {
-//   const userData = { id: "123", pw: "123" };
-//   const postData = { id: req.body.id, pw: req.body.pw };
-//   if (userData.id === postData.id && userData.pw === postData.pw) {
-//     res.send("성공");
-//   } else res.send("실패");
-//   res.end();
-// });
+// post 2개
+app.post("/upload2", uploads.array("files", 10), (req, res) => {
+  console.log(req.files); // 배열로 반환된 파일 정보 확인
+  console.log(req.body); // 폼 데이터 확인
+
+  const data = {
+    src1: req.files[0].filename,
+    src2: req.files[1].filename,
+    title: req.body.title,
+  };
+
+  res.send(data);
+});
 
 app.listen(port, () => {
   console.log(`서버 실행 ${port}`);

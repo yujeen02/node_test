@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Upload Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h2>파일 한개 업로드</h2>
+    <form id="uploadForm">
+      <input type="file" name="userfile" required />
+      <input type="text" name="usertext" placeholder="텍스트 입력" required />
+      <button type="submit" onclick="upload1(event)">업로드</button>
+    </form>
+    <div id="result"></div>
+
+    <h2>파일 2개 업로드</h2>
+    <form id="uploadForm2">
+      <input type="file" name="userfile2" multiple required />
+      <input type="text" name="usertext2" placeholder="텍스트 입력" required />
+      <button type="submit" onclick="upload2(event)">업로드</button>
+    </form>
+
+    <div id="result1"></div>
+  </body>
+
+  <script>
+    const upload1 = (event) => {
+      event.preventDefault(); // 폼 제출 방지
+
+      const form = document.forms["uploadForm"];
+      const formData = new FormData();
+      formData.append("title", form.usertext.value);
+      formData.append("files", form.userfile.files[0]);
+
+      // FormData 확인
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+
+      axios({
+        method: "post",
+        url: "/upload",
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+        .then((res) => {
+          const result = document.getElementById("result");
+          result.innerHTML = `<img src="/uploads/${res.data.src}" width="300" height="300" />
+          <div>${res.data.title}</div>`;
+          console.log("업로드 성공:", res.data);
+        })
+        .catch((error) => {
+          console.error("업로드 실패:", error);
+          const result = document.getElementById("result");
+          result.textContent = "업로드 실패! 다시 시도해주세요.";
+        });
+    };
+
+    const upload2 = (event) => {
+      event.preventDefault();
+
+      const form = document.forms["uploadForm2"];
+      const formData = new FormData();
+      formData.append("title", form.usertext2.value);
+
+      for (let i = 0; i < form.userfile2.files.length; i++) {
+        formData.append("files", form.userfile2.files[i]);
+      }
+
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value.name || value}`);
+      }
+
+      axios({
+        method: "post",
+        url: "/upload2",
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+        .then((res) => {
+          const result = document.getElementById("result1");
+
+          result.innerHTML = `
+        <p>업로드된 파일:</p>
+        <img src="/uploads/${res.data.src1}" width="300" height="300" />
+        <img src="/uploads/${res.data.src2}" width="300" height="300" />
+        <div><strong>텍스트 입력:</strong> ${res.data.title}</div>
+      `;
+          console.log("업로드 성공:", res.data);
+        })
+        .catch((error) => {
+          console.error("업로드 실패:", error);
+          const result = document.getElementById("result1");
+          result.textContent = "업로드 실패! 다시 시도해주세요.";
+        });
+    };
+  </script>
+</html>
