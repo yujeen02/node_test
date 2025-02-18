@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>배우 리스트</h3>
+    <div class="tableDiv">
+      <table border="1">
+        <thead>
+          <tr>
+            <th>이름</th>
+            <th>나이</th>
+            <th>커리어</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% womanActors.forEach(x => { %>
+          <tr>
+            <td><%= x.userName %></td>
+            <td><%= x.age %></td>
+            <td>
+              <% x.careers.forEach(career => { %> <%= career.category %> - <%=
+              career.title %> (<%= career.role %>)<br />
+              <% }) %>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

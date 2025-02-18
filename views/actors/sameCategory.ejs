@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>영화 배우 리스트</title>
+  </head>
+  <body>
+    <h3>영화 배우 리스트</h3>
+    <div class="tableDiv">
+      <table border="1">
+        <thead>
+          <tr>
+            <th>카테고리 이름</th>
+            <th>제목</th>
+            <th>배우 이름</th>
+            <th>역할</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% Object.keys(sameCaActors).forEach(key => { %> <%
+          sameCaActors[key].forEach(actor => { %>
+          <tr>
+            <td><%= actor.category %></td>
+            <td><%= actor.title %></td>
+            <td><%= actor.name %></td>
+            <td><%= actor.role %></td>
+          </tr>
+          <% }) %> <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
